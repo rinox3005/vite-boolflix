@@ -57,9 +57,21 @@ export default {
     <div class="movies">
       <h2 v-show="this.store.movieResults.length">Movies</h2>
       <ul v-for="movie in this.store.movieResults">
+        <li>
+          <img
+            v-if="!movie.poster_path"
+            src="/placeholder.png"
+            :alt="movie.title"
+          />
+          <img
+            v-else
+            :src="`${this.store.imgBaseUrl}${this.store.imgSize}${movie.poster_path}`"
+            :alt="movie.title"
+          />
+        </li>
         <li>Title: {{ movie.title }}</li>
         <li>Original title: {{ movie.original_title }}</li>
-        <li>
+        <li class="flag">
           Language:
           <img
             :src="`/flags/${movie.original_language}.svg`"
@@ -72,9 +84,21 @@ export default {
     <div class="tvseries">
       <h2 v-show="this.store.tvResults.length">TV Series</h2>
       <ul v-for="tvSeries in this.store.tvResults">
+        <li>
+          <img
+            v-if="!tvSeries.poster_path"
+            src="/placeholder.png"
+            :alt="tvSeries.title"
+          />
+          <img
+            v-else
+            :src="`${this.store.imgBaseUrl}${this.store.imgSize}${tvSeries.poster_path}`"
+            :alt="tvSeries.title"
+          />
+        </li>
         <li>Title: {{ tvSeries.name }}</li>
         <li>Original title: {{ tvSeries.original_name }}</li>
-        <li>
+        <li class="flag">
           Language:
           <img
             :src="`/flags/${tvSeries.original_language}.svg`"
@@ -102,9 +126,11 @@ main {
   }
   ul {
     padding-bottom: 20px;
-    img {
-      width: 15px;
-    }
+  }
+}
+.flag {
+  img {
+    width: 15px;
   }
 }
 .movies,
