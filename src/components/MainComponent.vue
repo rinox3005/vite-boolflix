@@ -37,6 +37,10 @@ export default {
         });
       }
     },
+    calculateStars(rating) {
+      const stars = Math.round(rating / 2);
+      return stars;
+    },
   },
   components: {},
 };
@@ -78,7 +82,14 @@ export default {
             :alt="`${movie.original_language} - flag not available`"
           />
         </li>
-        <li>Rating: {{ movie.vote_average }}</li>
+        <li>
+          <span v-for="x in calculateStars(movie.vote_average)">
+            <i class="fas fa-star"></i>
+          </span>
+          <span v-for="x in 5 - calculateStars(movie.vote_average)">
+            <i class="fa-regular fa-star"></i>
+          </span>
+        </li>
       </ul>
     </div>
     <div class="tvseries">
@@ -105,7 +116,14 @@ export default {
             :alt="`${tvSeries.original_language} - flag not available`"
           />
         </li>
-        <li>Rating: {{ tvSeries.vote_average }}</li>
+        <li>
+          <span v-for="x in calculateStars(tvSeries.vote_average)">
+            <i class="fas fa-star"></i>
+          </span>
+          <span v-for="x in 5 - calculateStars(tvSeries.vote_average)">
+            <i class="fa-regular fa-star"></i>
+          </span>
+        </li>
       </ul>
     </div>
   </main>
