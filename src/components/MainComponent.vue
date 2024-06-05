@@ -13,29 +13,29 @@ export default {
       const params = {};
 
       if (this.store.searchQuery) {
+        params["api_key"] = this.store.apiKey;
         params.query = this.store.searchQuery;
-      }
 
-      axios
-        .get(store.apiMovieSearchUrl + store.apiKey, { params })
-        .then((response) => {
+        axios.get(store.apiMovieSearchUrl, { params }).then((response) => {
           this.store.movieResults = response.data.results;
           console.log(response.data.results);
+          this.store.searchQuery = "";
         });
+      }
     },
     searchTvSeries() {
       const params = {};
 
       if (this.store.searchQuery) {
+        params["api_key"] = this.store.apiKey;
         params.query = this.store.searchQuery;
-      }
 
-      axios
-        .get(store.apiTvSearchUrl + store.apiKey, { params })
-        .then((response) => {
+        axios.get(store.apiTvSearchUrl, { params }).then((response) => {
           this.store.tvResults = response.data.results;
           console.log(response.data.results);
+          this.store.searchQuery = "";
         });
+      }
     },
   },
   components: {},
