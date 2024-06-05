@@ -39,12 +39,22 @@ export default {
       />
       <button @click="searchMovie()">Search</button>
     </div>
-    <ul v-for="movie in this.store.movieResults">
-      <li>Title: {{ movie.title }}</li>
-      <li>Original title: {{ movie.original_title }}</li>
-      <li>Language: {{ movie.original_language }}</li>
-      <li>Rating: {{ movie.vote_average }}</li>
-    </ul>
+    <div class="movies">
+      <h1 v-show="this.store.movieResults.length">Movies</h1>
+      <ul v-for="movie in this.store.movieResults">
+        <li>Title: {{ movie.title }}</li>
+        <li>Original title: {{ movie.original_title }}</li>
+        <li>
+          Language:
+          <img
+            v-if="`/flags/${movie.original_language}.svg`"
+            :src="`/flags/${movie.original_language}.svg`"
+            :alt="`${movie.original_language} - flag not available`"
+          />
+        </li>
+        <li>Rating: {{ movie.vote_average }}</li>
+      </ul>
+    </div>
   </main>
 </template>
 
@@ -59,6 +69,14 @@ main {
   }
   ul {
     padding-bottom: 20px;
+    img {
+      width: 15px;
+    }
+  }
+}
+.movies {
+  h1 {
+    padding-bottom: 10px;
   }
 }
 </style>
