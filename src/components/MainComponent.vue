@@ -8,14 +8,20 @@ export default {
       store,
     };
   },
-  created() {
-    this.apiCall();
-  },
   methods: {
-    apiCall() {
+    searchMovie() {
       const params = {};
 
-      axios.get(store.apiUrl, { params }).then((response) => {});
+      if (this.store.searchQuery) {
+        params.query = this.store.searchQuery;
+      }
+
+      axios
+        .get(store.apiMovieSearchUrl + store.apiKey, { params })
+        .then((response) => {
+          this.store.movieResults = response.data.results;
+          console.log(response.data.results);
+        });
     },
   },
   components: {},
@@ -24,8 +30,35 @@ export default {
 
 <template>
   <main>
-    <h1>Main</h1>
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search movie"
+        v-model="this.store.searchQuery"
+        @keyup.enter="searchMovie()"
+      />
+      <button @click="searchMovie()">Search</button>
+    </div>
+    <ul v-for="movie in this.store.movieResults">
+      <li>Title: {{ movie.title }}</li>
+      <li>Original title: {{ movie.original_title }}</li>
+      <li>Language: {{ movie.original_language }}</li>
+      <li>Rating: {{ movie.vote_average }}</li>
+    </ul>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  text-align: center;
+  .search {
+    padding: 50px 0;
+    input {
+      margin-right: 10px;
+    }
+  }
+  ul {
+    padding-bottom: 20px;
+  }
+}
+</style>
