@@ -23,6 +23,20 @@ export default {
           console.log(response.data.results);
         });
     },
+    searchTvSeries() {
+      const params = {};
+
+      if (this.store.searchQuery) {
+        params.query = this.store.searchQuery;
+      }
+
+      axios
+        .get(store.apiTvSearchUrl + store.apiKey, { params })
+        .then((response) => {
+          this.store.tvResults = response.data.results;
+          console.log(response.data.results);
+        });
+    },
   },
   components: {},
 };
@@ -30,29 +44,44 @@ export default {
 
 <template>
   <main>
+    <h1>Boolflix</h1>
     <div class="search">
       <input
         type="text"
         placeholder="Search movie"
         v-model="this.store.searchQuery"
-        @keyup.enter="searchMovie()"
+        @keyup.enter="searchMovie(), searchTvSeries()"
       />
-      <button @click="searchMovie()">Search</button>
+      <button @click="searchMovie(), searchTvSeries()">Search</button>
     </div>
     <div class="movies">
-      <h1 v-show="this.store.movieResults.length">Movies</h1>
+      <h2 v-show="this.store.movieResults.length">Movies</h2>
       <ul v-for="movie in this.store.movieResults">
         <li>Title: {{ movie.title }}</li>
         <li>Original title: {{ movie.original_title }}</li>
         <li>
           Language:
           <img
-            v-if="`/flags/${movie.original_language}.svg`"
             :src="`/flags/${movie.original_language}.svg`"
             :alt="`${movie.original_language} - flag not available`"
           />
         </li>
         <li>Rating: {{ movie.vote_average }}</li>
+      </ul>
+    </div>
+    <div class="tvseries">
+      <h2 v-show="this.store.tvResults.length">TV Series</h2>
+      <ul v-for="tvSeries in this.store.tvResults">
+        <li>Title: {{ tvSeries.name }}</li>
+        <li>Original title: {{ tvSeries.original_name }}</li>
+        <li>
+          Language:
+          <img
+            :src="`/flags/${tvSeries.original_language}.svg`"
+            :alt="`${tvSeries.original_language} - flag not available`"
+          />
+        </li>
+        <li>Rating: {{ tvSeries.vote_average }}</li>
       </ul>
     </div>
   </main>
@@ -61,6 +90,10 @@ export default {
 <style lang="scss" scoped>
 main {
   text-align: center;
+  h1 {
+    padding-top: 50px;
+    font-size: 50px;
+  }
   .search {
     padding: 50px 0;
     input {
@@ -74,8 +107,9 @@ main {
     }
   }
 }
-.movies {
-  h1 {
+.movies,
+.tvseries {
+  h2 {
     padding-bottom: 10px;
   }
 }
