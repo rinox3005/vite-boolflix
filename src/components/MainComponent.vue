@@ -1,5 +1,4 @@
 <script>
-import axios from "axios";
 import { store } from "../store";
 export default {
   name: "MainComponent",
@@ -9,34 +8,6 @@ export default {
     };
   },
   methods: {
-    searchMovie() {
-      const params = {};
-
-      if (this.store.searchQuery) {
-        params["api_key"] = this.store.apiKey;
-        params.query = this.store.searchQuery;
-
-        axios.get(store.apiMovieSearchUrl, { params }).then((response) => {
-          this.store.movieResults = response.data.results;
-          console.log(response.data.results);
-          this.store.searchQuery = "";
-        });
-      }
-    },
-    searchTvSeries() {
-      const params = {};
-
-      if (this.store.searchQuery) {
-        params["api_key"] = this.store.apiKey;
-        params.query = this.store.searchQuery;
-
-        axios.get(store.apiTvSearchUrl, { params }).then((response) => {
-          this.store.tvResults = response.data.results;
-          console.log(response.data.results);
-          this.store.searchQuery = "";
-        });
-      }
-    },
     calculateStars(rating) {
       const stars = Math.round(rating / 2);
       return stars;
@@ -48,16 +19,6 @@ export default {
 
 <template>
   <main>
-    <h1>Boolflix</h1>
-    <div class="search">
-      <input
-        type="text"
-        placeholder="Search movie"
-        v-model="this.store.searchQuery"
-        @keyup.enter="searchMovie(), searchTvSeries()"
-      />
-      <button @click="searchMovie(), searchTvSeries()">Search</button>
-    </div>
     <div class="movies">
       <h2 v-show="this.store.movieResults.length">Movies</h2>
       <ul v-for="movie in this.store.movieResults">
@@ -132,16 +93,7 @@ export default {
 <style lang="scss" scoped>
 main {
   text-align: center;
-  h1 {
-    padding-top: 50px;
-    font-size: 50px;
-  }
-  .search {
-    padding: 50px 0;
-    input {
-      margin-right: 10px;
-    }
-  }
+
   ul {
     padding-bottom: 20px;
   }
