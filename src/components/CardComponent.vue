@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       currentActors: [],
+      currentGenres: [],
     };
   },
   name: "CardComponent",
@@ -37,12 +38,13 @@ export default {
           "https://api.themoviedb.org/3/" +
             this.actorKey +
             this.id +
-            "/credits" +
-            "?api_key=2e9823c947e947ab6a35784821aa1f55"
+            "?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits"
         )
         .then((response) => {
-          this.currentActors = response.data.cast;
+          this.currentActors = response.data.credits.cast;
           this.currentActors = this.currentActors.splice(0, 5);
+          this.currentGenres = response.data.genres;
+          this.currentGenres = this.currentGenres.splice(0, 5);
         });
     },
   },
@@ -73,9 +75,18 @@ export default {
         <span v-for="x in 5 - calculateStars()">
           <i class="fa-regular fa-star"></i>
         </span>
-        <ul class="actors">
-          <li v-for="actor in currentActors">{{ actor.name }}</li>
-        </ul>
+        <div class="actors" v-if="currentActors.length">
+          <h3>Cast:</h3>
+          <ul>
+            <li v-for="actor in currentActors">{{ actor.name }}</li>
+          </ul>
+        </div>
+        <div class="genres" v-if="currentGenres.length">
+          <h3>Genres:</h3>
+          <ul>
+            <li v-for="genre in currentGenres">{{ genre.name }}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -94,7 +105,7 @@ export default {
     border: 1px solid rgb(163, 162, 162);
     background-color: rgb(37, 37, 37);
     display: none;
-    padding: 20px;
+    padding-top: 50px;
     color: #ffffff;
     div {
       padding-bottom: 10px;
@@ -124,7 +135,11 @@ export default {
   }
 }
 
-.actors {
+.actors,
+.genres {
   padding-top: 10px;
+  h3 {
+    padding-bottom: 5px;
+  }
 }
 </style>
