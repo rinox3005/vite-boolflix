@@ -23,7 +23,7 @@ export default {
           console.log(response.data.results);
         });
         this.store.currentSearch = this.store.searchQuery;
-        this.store.searchQuery = "";
+        // this.store.searchQuery = "";
       }
     },
     searchTvSeries() {
@@ -38,7 +38,7 @@ export default {
           console.log(response.data.results);
         });
         this.store.currentSearch = this.store.searchQuery;
-        this.store.searchQuery = "";
+        // this.store.searchQuery = "";
       }
     },
   },
