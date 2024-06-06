@@ -8,6 +8,9 @@ export const store = reactive({
   imgSize: "w342",
   movieResults: [],
   tvResults: [],
+  cast: [],
   searchQuery: "",
   currentSearch: "",
+  movieKey: "movie/",
+  tvKey: "tv/",
 });

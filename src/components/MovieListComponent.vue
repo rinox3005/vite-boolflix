@@ -32,6 +32,10 @@ export default {
         :posterPath="movie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :id="movie.id"
+        :cast="this.store.cast"
+        :searchResults="this.store.movieResults"
+        :actorKey="this.store.movieKey"
       />
     </div>
   </div>

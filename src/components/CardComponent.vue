@@ -1,5 +1,11 @@
 <script>
+import axios from "axios";
 export default {
+  data() {
+    return {
+      currentActors: [],
+    };
+  },
   name: "CardComponent",
   props: [
     "title",
@@ -9,14 +15,35 @@ export default {
     "posterPath",
     "imgUrl",
     "imgSize",
+    "id",
+    "cast",
+    "searchResults",
+    "actorKey",
   ],
   computed() {
     this.calculateStars();
+  },
+  created() {
+    this.searchActors();
   },
   methods: {
     calculateStars() {
       const stars = Math.round(this.vote / 2);
       return stars;
+    },
+    searchActors() {
+      axios
+        .get(
+          "https://api.themoviedb.org/3/" +
+            this.actorKey +
+            this.id +
+            "/credits" +
+            "?api_key=2e9823c947e947ab6a35784821aa1f55"
+        )
+        .then((response) => {
+          this.currentActors = response.data.cast;
+          this.currentActors = this.currentActors.splice(0, 5);
+        });
     },
   },
   components: {},
@@ -46,6 +73,9 @@ export default {
         <span v-for="x in 5 - calculateStars()">
           <i class="fa-regular fa-star"></i>
         </span>
+        <ul class="actors">
+          <li v-for="actor in currentActors">{{ actor.name }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -92,5 +122,9 @@ export default {
   h2 {
     padding-bottom: 10px;
   }
+}
+
+.actors {
+  padding-top: 10px;
 }
 </style>

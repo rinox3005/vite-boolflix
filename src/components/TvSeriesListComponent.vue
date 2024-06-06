@@ -32,6 +32,10 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :id="tvSerie.id"
+        :cast="this.store.cast"
+        :searchResults="this.store.tvResults"
+        :actorKey="this.store.tvKey"
       />
     </div>
   </div>
