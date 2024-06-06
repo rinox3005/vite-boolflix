@@ -29,22 +29,24 @@ export default {
       <img v-if="!posterPath" src="/placeholder.png" :alt="title" />
       <img v-else :src="`${imgUrl}${imgSize}${posterPath}`" :alt="title" />
     </div>
-    <div>Title: {{ title }}</div>
-    <div>Original title: {{ originalTitle }}</div>
-    <div class="flag">
-      Language:
-      <img
-        :src="`/flags/${originalLanguage}.svg`"
-        :alt="`${originalLanguage} - flag not available`"
-      />
-    </div>
-    <div>
-      <span v-for="x in calculateStars()">
-        <i class="fas fa-star"></i>
-      </span>
-      <span v-for="x in 5 - calculateStars()">
-        <i class="fa-regular fa-star"></i>
-      </span>
+    <div class="info">
+      <div>Title: {{ title }}</div>
+      <div>Original title: {{ originalTitle }}</div>
+      <div class="flag">
+        Language:
+        <img
+          :src="`/flags/${originalLanguage}.svg`"
+          :alt="`${originalLanguage} - flag not available`"
+        />
+      </div>
+      <div>
+        <span v-for="x in calculateStars()">
+          <i class="fas fa-star"></i>
+        </span>
+        <span v-for="x in 5 - calculateStars()">
+          <i class="fa-regular fa-star"></i>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -56,11 +58,34 @@ export default {
     width: 342px;
     height: 513px;
   }
+  .info {
+    width: 342px;
+    height: 513px;
+    border: 1px solid rgb(163, 162, 162);
+    background-color: rgb(37, 37, 37);
+    display: none;
+    padding: 20px;
+    color: #ffffff;
+    div {
+      padding-bottom: 10px;
+    }
+  }
+}
+
+.card:hover .info {
+  display: inline-block;
+}
+
+.card:hover .poster img {
+  display: none;
 }
 .flag {
   img {
     width: 15px;
   }
+}
+.fa-star {
+  color: rgb(255, 187, 0);
 }
 .movies,
 .tvseries {

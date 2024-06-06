@@ -19,24 +19,14 @@ export default {
 
 <template>
   <main>
-    <div class="movies">
-      <h2 v-show="this.store.movieResults.length">Movies</h2>
-      <MovieListComponent />
-    </div>
-    <div class="tvseries">
-      <h2 v-show="this.store.tvResults.length">TV Series</h2>
-      <TvSeriesListComponent />
-    </div>
+    <MovieListComponent />
+    <TvSeriesListComponent />
   </main>
 </template>
 
 <style lang="scss" scoped>
 main {
   text-align: center;
-
-  ul {
-    padding-bottom: 20px;
-  }
 }
 .flag {
   img {
@@ -48,6 +38,7 @@ main {
   h2 {
     padding-bottom: 10px;
     font-size: 40px;
+    text-align: left;
   }
 }
 </style>

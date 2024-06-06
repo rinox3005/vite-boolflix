@@ -21,8 +21,9 @@ export default {
         axios.get(store.apiMovieSearchUrl, { params }).then((response) => {
           this.store.movieResults = response.data.results;
           console.log(response.data.results);
-          this.store.searchQuery = "";
         });
+        this.store.currentSearch = this.store.searchQuery;
+        this.store.searchQuery = "";
       }
     },
     searchTvSeries() {
@@ -35,8 +36,9 @@ export default {
         axios.get(store.apiTvSearchUrl, { params }).then((response) => {
           this.store.tvResults = response.data.results;
           console.log(response.data.results);
-          this.store.searchQuery = "";
         });
+        this.store.currentSearch = this.store.searchQuery;
+        this.store.searchQuery = "";
       }
     },
   },
