@@ -10,6 +10,10 @@ export default {
       store,
     };
   },
+  created() {
+    this.getTvGenres();
+    this.getMovieGenres();
+  },
   methods: {
     searchMovie() {
       const params = {};
@@ -20,7 +24,6 @@ export default {
 
         axios.get(store.apiMovieSearchUrl, { params }).then((response) => {
           this.store.movieResults = response.data.results;
-          console.log(response.data.results);
         });
         this.store.currentSearch = this.store.searchQuery;
         // this.store.searchQuery = "";
@@ -35,10 +38,38 @@ export default {
 
         axios.get(store.apiTvSearchUrl, { params }).then((response) => {
           this.store.tvResults = response.data.results;
-          console.log(response.data.results);
         });
         this.store.currentSearch = this.store.searchQuery;
         // this.store.searchQuery = "";
+      }
+    },
+    getMovieGenres() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+      axios.get(store.apiMovieGenresUrl, { params }).then((response) => {
+        this.store.movieGenres = response.data.genres;
+      });
+    },
+    getTvGenres() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+      axios.get(store.apiTvGenresUrl, { params }).then((response) => {
+        this.store.tvGenres = response.data.genres;
+      });
+    },
+    filterMovieResults() {
+      for (let i = 0; i < this.store.movieResults.length; i++) {
+        let tempArr = [];
+
+        tempArr = this.store.movieResults[i].genre_ids;
+        console.log("-----");
+        if (tempArr.includes(this.store.currentSearchId)) {
+          console.log("suca");
+        } else {
+          console.table("lol");
+        }
       }
     },
   },
@@ -51,7 +82,10 @@ export default {
 </script>
 
 <template>
-  <HeaderComponent @search="searchMovie(), searchTvSeries()" />
+  <HeaderComponent
+    @search="searchMovie(), searchTvSeries()"
+    @filter="filterMovieResults()"
+  />
   <MainComponent />
   <FooterComponent />
 </template>
