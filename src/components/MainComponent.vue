@@ -2,6 +2,7 @@
 import { store } from "../store";
 import MovieListComponent from "./MovieListComponent.vue";
 import TvSeriesListComponent from "./TvSeriesListComponent.vue";
+import LandingPageComponent from "./LandingPageComponent.vue";
 export default {
   name: "MainComponent",
   data() {
@@ -11,6 +12,7 @@ export default {
   },
   methods: {},
   components: {
+    LandingPageComponent,
     MovieListComponent,
     TvSeriesListComponent,
   },
@@ -19,8 +21,9 @@ export default {
 
 <template>
   <main>
-    <MovieListComponent />
-    <TvSeriesListComponent />
+    <LandingPageComponent v-if="!this.store.searchQuery" />
+    <MovieListComponent v-if="this.store.searchQuery" />
+    <TvSeriesListComponent v-if="this.store.searchQuery" />
   </main>
 </template>
 

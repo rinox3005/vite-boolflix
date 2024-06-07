@@ -17,7 +17,7 @@ export default {
       <a href="/"><h1>Boolflix</h1></a>
 
       <div class="search">
-        <div class="tvGenres">
+        <div class="tvGenres" v-show="this.store.searchQuery">
           <select
             name="tvgenres"
             id="tvgenres"
@@ -35,7 +35,7 @@ export default {
             </option>
           </select>
         </div>
-        <div class="movieGenres">
+        <div class="movieGenres" v-show="this.store.searchQuery">
           <select
             name="moviegenres"
             id="moviegenres"
@@ -57,9 +57,9 @@ export default {
           type="text"
           placeholder="Search movie"
           v-model="this.store.searchQuery"
-          @keyup.enter="$emit('search')"
+          @keyup="$emit('search')"
         />
-        <button @click="$emit('search')">Search</button>
+        <!-- <button @click="$emit('search')">Search</button> -->
       </div>
     </div>
   </header>
@@ -74,7 +74,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 80%;
+    max-width: 86%;
     margin: 0 auto;
     a:visited {
       color: black;

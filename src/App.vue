@@ -13,6 +13,7 @@ export default {
   created() {
     this.getTvGenres();
     this.getMovieGenres();
+    this.getPopular();
   },
   methods: {
     searchMovie() {
@@ -73,6 +74,15 @@ export default {
         if (tvshow.genre_ids.includes(this.store.currentSearchTvId)) {
           this.store.filteredTvShows.push(tvshow);
         }
+      });
+    },
+    getPopular() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+
+      axios.get(store.apiPopularUrl, { params }).then((response) => {
+        this.store.popularMovies = response.data.results;
       });
     },
   },

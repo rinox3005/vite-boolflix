@@ -18,9 +18,6 @@ export default {
   <div class="movies">
     <div class="results">
       <h2 v-show="this.store.movieResults.length">Movies</h2>
-      <h3 v-show="this.store.movieResults.length">
-        Results for "{{ this.store.currentSearch }}"
-      </h3>
     </div>
     <div class="container">
       <CardComponent
@@ -69,14 +66,14 @@ export default {
 .movies {
   .results {
     display: flex;
-    width: 77%;
+    width: 76%;
     margin: 20px auto;
     align-items: baseline;
     justify-content: space-between;
-    padding: 10px 0;
+    padding-top: 10px;
     color: #ffffff;
     h2 {
-      font-size: 40px;
+      font-size: 30px;
     }
     h3 {
       font-size: 20px;

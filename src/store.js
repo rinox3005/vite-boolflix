@@ -6,6 +6,7 @@ export const store = reactive({
   apiTvSearchUrl: "https://api.themoviedb.org/3/search/tv",
   apiMovieGenresUrl: "https://api.themoviedb.org/3/genre/movie/list",
   apiTvGenresUrl: "https://api.themoviedb.org/3/genre/tv/list",
+  apiPopularUrl: "https://api.themoviedb.org/3/movie/popular",
   imgBaseUrl: "https://image.tmdb.org/t/p/",
   imgSize: "w342",
   movieResults: [],
@@ -21,4 +22,5 @@ export const store = reactive({
   currentSearchTvId: "",
   filteredMovies: [],
   filteredTvShows: [],
+  popularMovies: [],
 });
