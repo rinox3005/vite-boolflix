@@ -25,14 +25,14 @@ export default {
     this.calculateStars();
   },
   created() {
-    this.searchActors();
+    this.searchInfo();
   },
   methods: {
     calculateStars() {
       const stars = Math.round(this.vote / 2);
       return stars;
     },
-    searchActors() {
+    searchInfo() {
       axios
         .get(
           "https://api.themoviedb.org/3/" +
@@ -44,7 +44,6 @@ export default {
           this.currentActors = response.data.credits.cast;
           this.currentActors = this.currentActors.splice(0, 5);
           this.currentGenres = response.data.genres;
-          this.currentGenres = this.currentGenres.splice(0, 5);
         });
     },
   },

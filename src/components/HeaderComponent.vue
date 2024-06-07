@@ -2,7 +2,7 @@
 import { store } from "../store";
 export default {
   name: "HeaderComponent",
-  emits: ["search"],
+  emits: ["search", "filterMovies", "filterTv"],
   data() {
     return {
       store,
@@ -17,6 +17,42 @@ export default {
       <a href="/"><h1>Boolflix</h1></a>
 
       <div class="search">
+        <div class="tvGenres">
+          <select
+            name="tvgenres"
+            id="tvgenres"
+            v-model="this.store.currentSearchTvId"
+            @change="$emit('filterTv')"
+          >
+            <option value="" disabled selected hidden>TV Genres</option>
+            <option class="default" value="" selected>----</option>
+            <option
+              v-for="genre in this.store.tvGenres"
+              :value="genre.id"
+              :key="genre.id"
+            >
+              {{ genre.name }}
+            </option>
+          </select>
+        </div>
+        <div class="movieGenres">
+          <select
+            name="moviegenres"
+            id="moviegenres"
+            v-model="this.store.currentSearchMovieId"
+            @change="$emit('filterMovies')"
+          >
+            <option value="" disabled selected hidden>Movie Genres</option>
+            <option class="default" value="" selected>----</option>
+            <option
+              v-for="genre in this.store.movieGenres"
+              :value="genre.id"
+              :key="genre.id"
+            >
+              {{ genre.name }}
+            </option>
+          </select>
+        </div>
         <input
           type="text"
           placeholder="Search movie"
@@ -48,8 +84,15 @@ header {
     }
 
     .search {
+      display: flex;
       input {
         margin-right: 10px;
+      }
+      select {
+        margin-right: 10px;
+      }
+      .default {
+        padding-left: 20px;
       }
     }
   }

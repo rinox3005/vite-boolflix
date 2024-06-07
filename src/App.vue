@@ -60,17 +60,20 @@ export default {
       });
     },
     filterMovieResults() {
-      for (let i = 0; i < this.store.movieResults.length; i++) {
-        let tempArr = [];
-
-        tempArr = this.store.movieResults[i].genre_ids;
-        console.log("-----");
-        if (tempArr.includes(this.store.currentSearchId)) {
-          console.log("suca");
-        } else {
-          console.table("lol");
+      this.store.filteredMovies = [];
+      this.store.movieResults.map((movie) => {
+        if (movie.genre_ids.includes(this.store.currentSearchMovieId)) {
+          this.store.filteredMovies.push(movie);
         }
-      }
+      });
+    },
+    filterTvResults() {
+      this.store.filteredTvShows = [];
+      this.store.tvResults.map((tvshow) => {
+        if (tvshow.genre_ids.includes(this.store.currentSearchTvId)) {
+          this.store.filteredTvShows.push(tvshow);
+        }
+      });
     },
   },
   components: {
@@ -84,7 +87,8 @@ export default {
 <template>
   <HeaderComponent
     @search="searchMovie(), searchTvSeries()"
-    @filter="filterMovieResults()"
+    @filterMovies="filterMovieResults()"
+    @filterTv="filterTvResults()"
   />
   <MainComponent />
   <FooterComponent />

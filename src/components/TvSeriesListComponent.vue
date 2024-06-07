@@ -24,6 +24,7 @@ export default {
     </div>
     <div class="container">
       <CardComponent
+        v-if="!this.store.filteredTvShows.length"
         v-for="tvSerie in this.store.tvResults"
         :title="tvSerie.name"
         :originalTitle="tvSerie.original_name"
@@ -35,6 +36,21 @@ export default {
         :id="tvSerie.id"
         :cast="this.store.cast"
         :searchResults="this.store.tvResults"
+        :actorKey="this.store.tvKey"
+      />
+      <CardComponent
+        v-else
+        v-for="tvSerie in this.store.filteredTvShows"
+        :title="tvSerie.name"
+        :originalTitle="tvSerie.original_name"
+        :originalLanguage="tvSerie.original_language"
+        :vote="tvSerie.vote_average"
+        :posterPath="tvSerie.poster_path"
+        :imgUrl="this.store.imgBaseUrl"
+        :imgSize="this.store.imgSize"
+        :id="tvSerie.id"
+        :cast="this.store.cast"
+        :searchResults="this.store.filteredTvShows"
         :actorKey="this.store.tvKey"
       />
     </div>
