@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       store,
+      isSearchBarVisible: false,
     };
   },
   watch: {
@@ -15,6 +16,19 @@ export default {
         this.store.currentSearchMovieId = "";
         this.$emit("filterMovies");
         this.$emit("filterTv");
+        this.isSearchBarVisible = false;
+      }
+    },
+  },
+  methods: {
+    showHideSearchBar() {
+      if (!this.isSearchBarVisible) {
+        console.log("ciao");
+        this.isSearchBarVisible = true;
+        this.store.searchQuery = "";
+        this.$emit("search");
+      } else {
+        this.isSearchBarVisible = false;
       }
     },
   },
@@ -27,16 +41,16 @@ export default {
       <a href="/"><h1>Boolflix</h1></a>
 
       <div class="search">
-        <div class="tvGenres" v-show="this.store.searchQuery">
+        <div class="tvGenres" v-show="store.searchQuery">
           <select
             name="tvgenres"
             id="tvgenres"
-            v-model="this.store.currentSearchTvId"
+            v-model="store.currentSearchTvId"
             @change="$emit('filterTv')"
           >
             <option class="default" value="" selected>TV Genres</option>
             <option
-              v-for="genre in this.store.tvGenres"
+              v-for="genre in store.tvGenres"
               :value="genre.id"
               :key="genre.id"
             >
@@ -44,16 +58,16 @@ export default {
             </option>
           </select>
         </div>
-        <div class="movieGenres" v-show="this.store.searchQuery">
+        <div class="movieGenres" v-show="store.searchQuery">
           <select
             name="moviegenres"
             id="moviegenres"
-            v-model="this.store.currentSearchMovieId"
+            v-model="store.currentSearchMovieId"
             @change="$emit('filterMovies')"
           >
             <option class="default" value="" selected>Movie Genres</option>
             <option
-              v-for="genre in this.store.movieGenres"
+              v-for="genre in store.movieGenres"
               :value="genre.id"
               :key="genre.id"
             >
@@ -61,13 +75,17 @@ export default {
             </option>
           </select>
         </div>
+
         <input
+          v-show="isSearchBarVisible"
           type="text"
-          placeholder="Search movie"
-          v-model="this.store.searchQuery"
+          placeholder="Search movie or tv show"
+          v-model="store.searchQuery"
           @keyup="$emit('search')"
         />
-        <!-- <button @click="$emit('search')">Search</button> -->
+        <div v-show="!store.searchQuery" @click="showHideSearchBar">
+          <i class="fas fa-magnifying-glass"></i>
+        </div>
       </div>
     </div>
   </header>
@@ -114,6 +132,15 @@ header {
       .default {
         padding-left: 20px;
       }
+    }
+  }
+  .fa-magnifying-glass {
+    color: grey;
+    font-size: 22px;
+    padding-top: 4px;
+    &:hover {
+      color: lightgray;
+      cursor: pointer;
     }
   }
 }
