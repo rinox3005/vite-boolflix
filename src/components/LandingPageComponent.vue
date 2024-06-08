@@ -249,10 +249,7 @@ export default {
     padding: 10px 0;
     color: #ffffff;
     h2 {
-      font-size: 40px;
-    }
-    h3 {
-      font-size: 20px;
+      font-size: 25px;
     }
   }
 }

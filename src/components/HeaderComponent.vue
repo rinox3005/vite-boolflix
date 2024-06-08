@@ -67,29 +67,41 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  background-color: red;
-  padding: 10px 0;
-  padding-bottom: 20px;
+  background-color: black;
+  padding: 15px 0;
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 86%;
     margin: 0 auto;
+    h1 {
+      font-size: 30px;
+    }
     a:visited {
-      color: black;
-      h1 {
-        font-size: 30px;
-      }
+      color: red;
     }
 
     .search {
       display: flex;
       input {
         margin-right: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        background-color: black;
+        color: white;
+        &:focus {
+          outline: none;
+        }
       }
       select {
         margin-right: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        background-color: black;
+        color: white;
       }
       .default {
         padding-left: 20px;
