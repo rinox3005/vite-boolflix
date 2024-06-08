@@ -8,6 +8,7 @@ export default {
       store,
     };
   },
+
   components: {
     CardComponent,
   },

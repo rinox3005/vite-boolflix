@@ -8,6 +8,16 @@ export default {
       store,
     };
   },
+  watch: {
+    "store.searchQuery"(newQuery) {
+      if (!newQuery) {
+        this.store.currentSearchTvId = "";
+        this.store.currentSearchMovieId = "";
+        this.$emit("filterMovies");
+        this.$emit("filterTv");
+      }
+    },
+  },
 };
 </script>
 
@@ -24,8 +34,7 @@ export default {
             v-model="this.store.currentSearchTvId"
             @change="$emit('filterTv')"
           >
-            <option value="" disabled selected hidden>TV Genres</option>
-            <option class="default" value="" selected>----</option>
+            <option class="default" value="" selected>TV Genres</option>
             <option
               v-for="genre in this.store.tvGenres"
               :value="genre.id"
@@ -42,8 +51,7 @@ export default {
             v-model="this.store.currentSearchMovieId"
             @change="$emit('filterMovies')"
           >
-            <option value="" disabled selected hidden>Movie Genres</option>
-            <option class="default" value="" selected>----</option>
+            <option class="default" value="" selected>Movie Genres</option>
             <option
               v-for="genre in this.store.movieGenres"
               :value="genre.id"
