@@ -85,6 +85,8 @@ export default {
         />
         <div v-show="!store.searchQuery" @click="showHideSearchBar">
           <i class="fas fa-magnifying-glass"></i>
+          <i class="fas fa-bell"></i>
+          <i class="fas fas fa-user"></i>
         </div>
       </div>
     </div>
@@ -134,7 +136,9 @@ header {
       }
     }
   }
-  .fa-magnifying-glass {
+  .fa-magnifying-glass,
+  .fa-bell,
+  .fa-user {
     color: grey;
     font-size: 22px;
     padding-top: 4px;
@@ -142,6 +146,10 @@ header {
       color: lightgray;
       cursor: pointer;
     }
+  }
+  .fa-bell,
+  .fa-user {
+    padding-left: 15px;
   }
 }
 </style>
