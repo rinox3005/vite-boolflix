@@ -71,7 +71,7 @@ export default {
 <template>
   <div class="landing">
     <div class="results">
-      <h2>Popular movies</h2>
+      <h2>Popular Movies</h2>
     </div>
     <div
       class="scroll-container-wrapper"
@@ -80,25 +80,103 @@ export default {
     >
       <button @click="scrollLeft" class="scroll-button left">◀</button>
       <div class="scroll-container" ref="scrollContainer">
-        <div class="container">
-          <CardComponent
-            v-for="movie in store.popularMovies"
-            :key="movie.id"
-            :title="movie.title"
-            :original-title="movie.original_title"
-            :original-language="movie.original_language"
-            :vote="movie.vote_average"
-            :poster-path="movie.poster_path"
-            :img-url="store.imgBaseUrl"
-            :img-size="store.imgSize"
-            :id="movie.id"
-            :cast="store.cast"
-            :search-results="store.popularMovies"
-            :actor-key="store.movieKey"
-          />
-        </div>
+        <CardComponent
+          v-for="movie in store.popularMovies"
+          :key="movie.id"
+          :title="movie.title"
+          :original-title="movie.original_title"
+          :original-language="movie.original_language"
+          :vote="movie.vote_average"
+          :poster-path="movie.poster_path"
+          :img-url="store.imgBaseUrl"
+          :img-size="store.imgSize"
+          :id="movie.id"
+          :cast="store.cast"
+          :search-results="store.popularMovies"
+          :actor-key="store.movieKey"
+        />
       </div>
       <button @click="scrollRight" class="scroll-button right">▶</button>
+    </div>
+    <div class="results">
+      <h2>Upcoming Movies</h2>
+    </div>
+    <div class="container dragscroll">
+      <CardComponent
+        v-for="movie in store.upcomingMovies"
+        :key="movie.id"
+        :title="movie.title"
+        :original-title="movie.original_title"
+        :original-language="movie.original_language"
+        :vote="movie.vote_average"
+        :poster-path="movie.poster_path"
+        :img-url="store.imgBaseUrl"
+        :img-size="store.imgSize"
+        :id="movie.id"
+        :cast="store.cast"
+        :search-results="store.upcomingMovies"
+        :actor-key="store.movieKey"
+      />
+    </div>
+    <div class="results">
+      <h2>Top Rated Movies</h2>
+    </div>
+    <div class="container dragscroll">
+      <CardComponent
+        v-for="movie in store.topRatedMovies"
+        :key="movie.id"
+        :title="movie.title"
+        :original-title="movie.original_title"
+        :original-language="movie.original_language"
+        :vote="movie.vote_average"
+        :poster-path="movie.poster_path"
+        :img-url="store.imgBaseUrl"
+        :img-size="store.imgSize"
+        :id="movie.id"
+        :cast="store.cast"
+        :search-results="store.topRatedMovies"
+        :actor-key="store.movieKey"
+      />
+    </div>
+    <div class="results">
+      <h2>Top Rated Tv Shows</h2>
+    </div>
+    <div class="container dragscroll">
+      <CardComponent
+        v-for="tvshow in store.topRatedTv"
+        :key="tvshow.id"
+        :title="tvshow.name"
+        :original-title="tvshow.original_name"
+        :original-language="tvshow.original_language"
+        :vote="tvshow.vote_average"
+        :poster-path="tvshow.poster_path"
+        :img-url="store.imgBaseUrl"
+        :img-size="store.imgSize"
+        :id="tvshow.id"
+        :cast="store.cast"
+        :search-results="store.topRatedTv"
+        :actor-key="store.movieKey"
+      />
+    </div>
+    <div class="results">
+      <h2>Popular Tv Shows</h2>
+    </div>
+    <div class="container dragscroll">
+      <CardComponent
+        v-for="tvshow in store.popularTv"
+        :key="tvshow.id"
+        :title="tvshow.name"
+        :original-title="tvshow.original_name"
+        :original-language="tvshow.original_language"
+        :vote="tvshow.vote_average"
+        :poster-path="tvshow.poster_path"
+        :img-url="store.imgBaseUrl"
+        :img-size="store.imgSize"
+        :id="tvshow.id"
+        :cast="store.cast"
+        :search-results="store.popularTv"
+        :actor-key="store.movieKey"
+      />
     </div>
   </div>
 </template>
@@ -122,11 +200,17 @@ export default {
   scroll-behavior: smooth;
   width: calc(100% - 70px);
   margin: 0 auto;
+  gap: 5px;
 }
 
 .container {
   display: flex;
+  overflow-x: auto;
+  width: 86%;
+  margin: 0 auto;
   gap: 5px;
+  cursor: grab;
+  margin-bottom: 30px;
 }
 
 .scroll-button {

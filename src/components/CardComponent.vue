@@ -104,7 +104,7 @@ export default {
     border: 1px solid rgb(163, 162, 162);
     background-color: rgb(37, 37, 37);
     display: none;
-    padding-top: 50px;
+    padding: 50px 30px;
     color: #ffffff;
     div {
       padding-bottom: 10px;

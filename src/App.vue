@@ -13,7 +13,11 @@ export default {
   created() {
     this.getTvGenres();
     this.getMovieGenres();
-    this.getPopular();
+    this.getPopularMovies();
+    this.getTopRatedMovies();
+    this.getUpcomingMovies();
+    this.getPopularTvShows();
+    this.getTopRatedTvShows();
   },
   methods: {
     searchMovie() {
@@ -76,13 +80,49 @@ export default {
         }
       });
     },
-    getPopular() {
+    getPopularMovies() {
       const params = {};
 
       params.api_key = this.store.apiKey;
 
-      axios.get(store.apiPopularUrl, { params }).then((response) => {
+      axios.get(store.apiPopularMoviesUrl, { params }).then((response) => {
         this.store.popularMovies = response.data.results;
+      });
+    },
+    getTopRatedMovies() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+
+      axios.get(store.apiTopRatedMoviesUrl, { params }).then((response) => {
+        this.store.topRatedMovies = response.data.results;
+      });
+    },
+    getUpcomingMovies() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+
+      axios.get(store.apiUpcomingMoviesUrl, { params }).then((response) => {
+        this.store.upcomingMovies = response.data.results;
+      });
+    },
+    getTopRatedTvShows() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+
+      axios.get(store.apiTopRatedTvUrl, { params }).then((response) => {
+        this.store.topRatedTv = response.data.results;
+      });
+    },
+    getPopularTvShows() {
+      const params = {};
+
+      params.api_key = this.store.apiKey;
+
+      axios.get(store.apiPopularTvUrl, { params }).then((response) => {
+        this.store.popularTv = response.data.results;
       });
     },
   },
