@@ -36,7 +36,29 @@ export default {
 <template>
   <header>
     <div class="container">
-      <a href="/"><h1>Boolflix</h1></a>
+      <a href="/">
+        <h1 class="mainlogo">Boolflix</h1>
+        <h1 class="altlogo">B</h1>
+      </a>
+      <div class="navburger"><i class="fas fa-bars"></i></div>
+      <div class="navcompact">
+        <select name="navcompact" id="navcompact">
+          <option value="home">Home</option>
+          <option value="tvshows">Tv Shows</option>
+          <option value="movies">Movies</option>
+          <option value="newreleases">New Releases</option>
+          <option value="popular">Popular</option>
+          <option value="browsebylang">Browse by Languages</option>
+        </select>
+      </div>
+      <ul class="nav" v-show="!this.store.searchQuery">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Tv Shows</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">New Releases</a></li>
+        <li><a href="#">Popular</a></li>
+        <li><a href="#">Browse by Languages</a></li>
+      </ul>
 
       <div class="search">
         <div class="tvGenres" v-show="store.searchQuery">
@@ -84,6 +106,8 @@ export default {
         />
         <div v-show="!store.searchQuery" @click="showHideSearchBar">
           <i class="fas fa-magnifying-glass"></i>
+        </div>
+        <div v-show="!store.searchQuery">
           <i class="fas fa-bell"></i>
           <i class="fas fa-user"></i>
         </div>
@@ -104,6 +128,7 @@ header {
   top: 0;
   z-index: 1;
   min-height: 70px;
+  min-width: 435px;
   .container {
     display: flex;
     justify-content: space-between;
@@ -112,16 +137,17 @@ header {
     margin: 0 auto;
     h1 {
       font-size: 30px;
-    }
-    a:visited {
       color: red;
+      a:visited {
+        color: red;
+      }
     }
 
     .search {
       display: flex;
       align-items: center;
       input {
-        margin-right: 10px;
+        margin-right: 15px;
         padding: 7px 10px;
         border-radius: 5px;
         border: 1px solid grey;
@@ -138,6 +164,9 @@ header {
         border: 1px solid grey;
         background-color: #0d0d0d;
         color: white;
+        &:focus {
+          outline: none;
+        }
       }
       .default {
         padding-left: 20px;
@@ -147,16 +176,85 @@ header {
   .fa-magnifying-glass,
   .fa-bell,
   .fa-user {
-    color: grey;
+    color: rgb(255, 254, 254);
     font-size: 23px;
     &:hover {
-      color: lightgray;
       cursor: pointer;
     }
   }
   .fa-bell,
   .fa-user {
     padding-left: 20px;
+  }
+}
+
+ul {
+  display: flex;
+  color: #ffffff;
+  flex-grow: 1;
+  padding-left: 40px;
+  li {
+    padding-right: 20px;
+    a:visited {
+      color: #ffffff;
+    }
+  }
+}
+.navburger {
+  display: none;
+}
+.navcompact {
+  display: none;
+}
+
+.altlogo {
+  display: none;
+}
+
+@media screen and (max-width: 1225px) {
+  .nav {
+    display: none;
+  }
+
+  .navcompact {
+    display: block;
+    flex-grow: 1;
+    margin-left: 20px;
+    select {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid grey;
+      background-color: #0d0d0d;
+      color: white;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 715px) {
+  .mainlogo {
+    display: none;
+  }
+  .altlogo {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navcompact {
+    display: none;
+  }
+
+  .navburger {
+    display: block;
+    flex-grow: 1;
+    color: #ffffff;
+    margin-left: 10px;
+    font-size: 25px;
+    margin-top: 2px;
+    margin-right: 10px;
   }
 }
 </style>
