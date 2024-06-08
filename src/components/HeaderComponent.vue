@@ -94,8 +94,16 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  background-color: black;
-  padding: 15px 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(13, 13, 13, 1) 70%
+  );
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 70px;
   .container {
     display: flex;
     justify-content: space-between;
@@ -111,12 +119,13 @@ header {
 
     .search {
       display: flex;
+      align-items: center;
       input {
         margin-right: 10px;
-        padding: 5px 10px;
+        padding: 7px 10px;
         border-radius: 5px;
         border: 1px solid grey;
-        background-color: black;
+        background-color: #0d0d0d;
         color: white;
         &:focus {
           outline: none;
@@ -127,7 +136,7 @@ header {
         padding: 5px 10px;
         border-radius: 5px;
         border: 1px solid grey;
-        background-color: black;
+        background-color: #0d0d0d;
         color: white;
       }
       .default {
@@ -139,8 +148,7 @@ header {
   .fa-bell,
   .fa-user {
     color: grey;
-    font-size: 22px;
-    padding-top: 4px;
+    font-size: 23px;
     &:hover {
       color: lightgray;
       cursor: pointer;
@@ -148,7 +156,7 @@ header {
   }
   .fa-bell,
   .fa-user {
-    padding-left: 15px;
+    padding-left: 20px;
   }
 }
 </style>

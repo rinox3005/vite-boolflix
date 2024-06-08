@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 footer {
   height: 150px;
-  background-color: black;
+  background-color: #0d0d0d;
   .container {
     display: flex;
     justify-content: space-between;
