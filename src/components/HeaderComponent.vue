@@ -22,14 +22,12 @@ export default {
   },
   methods: {
     showHideSearchBar() {
-      if (!this.isSearchBarVisible) {
-        console.log("ciao");
-        this.isSearchBarVisible = true;
-        this.store.searchQuery = "";
-        this.$emit("search");
-      } else {
-        this.isSearchBarVisible = false;
-      }
+      this.isSearchBarVisible = !this.isSearchBarVisible;
+      this.$nextTick(() => {
+        if (this.isSearchBarVisible) {
+          this.$refs.searchInput.focus();
+        }
+      });
     },
   },
 };
@@ -77,6 +75,7 @@ export default {
         </div>
 
         <input
+          ref="searchInput"
           v-show="isSearchBarVisible"
           type="text"
           placeholder="Search movie or tv show"
@@ -86,7 +85,7 @@ export default {
         <div v-show="!store.searchQuery" @click="showHideSearchBar">
           <i class="fas fa-magnifying-glass"></i>
           <i class="fas fa-bell"></i>
-          <i class="fas fas fa-user"></i>
+          <i class="fas fa-user"></i>
         </div>
       </div>
     </div>

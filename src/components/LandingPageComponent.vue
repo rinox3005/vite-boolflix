@@ -155,7 +155,7 @@ export default {
         :id="tvshow.id"
         :cast="store.cast"
         :search-results="store.topRatedTv"
-        :actor-key="store.movieKey"
+        :actor-key="store.tvKey"
       />
     </div>
     <div class="results">
@@ -175,7 +175,7 @@ export default {
         :id="tvshow.id"
         :cast="store.cast"
         :search-results="store.popularTv"
-        :actor-key="store.movieKey"
+        :actor-key="store.tvKey"
       />
     </div>
   </div>
