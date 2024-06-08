@@ -43,6 +43,7 @@ export default {
       <div class="navburger"><i class="fas fa-bars"></i></div>
       <div class="navcompact">
         <select name="navcompact" id="navcompact">
+          <option value="home" selected hidden>Browse &#11167;</option>
           <option value="home">Home</option>
           <option value="tvshows">Tv Shows</option>
           <option value="movies">Movies</option>
@@ -52,7 +53,7 @@ export default {
         </select>
       </div>
       <ul class="nav" v-show="!this.store.searchQuery">
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="#">Tv Shows</a></li>
         <li><a href="#">Movies</a></li>
         <li><a href="#">New Releases</a></li>
@@ -220,14 +221,22 @@ ul {
     display: block;
     flex-grow: 1;
     margin-left: 20px;
+
     select {
+      font-size: 17px;
       padding: 5px 10px;
-      border-radius: 5px;
-      border: 1px solid grey;
-      background-color: #0d0d0d;
+      width: auto;
+      border: none;
       color: white;
+      background-color: transparent;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
       &:focus {
         outline: none;
+      }
+      option {
+        background-color: #0d0d0d;
       }
     }
   }
