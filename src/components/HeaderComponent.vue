@@ -160,7 +160,7 @@ header {
       }
       select {
         margin-right: 10px;
-        padding: 5px 10px;
+        padding: 7px 10px;
         border-radius: 5px;
         border: 1px solid grey;
         background-color: #0d0d0d;
