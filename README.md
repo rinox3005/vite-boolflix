@@ -9,6 +9,10 @@ Replicare la logica che sta dietro a tantissimi siti che permettono la visione d
   npm run dev
 ```
 
+## Guarda il sito online
+
+https://vite-boolflix-one.vercel.app/
+
 ## Useful links
 
 Sito di riferimento:

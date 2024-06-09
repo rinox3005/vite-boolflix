@@ -196,8 +196,11 @@ ul {
   padding-left: 40px;
   li {
     padding-right: 20px;
-    a:visited {
+    a {
       color: #ffffff;
+      &:visited {
+        color: #ffffff;
+      }
     }
   }
 }
