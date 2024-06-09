@@ -1,8 +1,10 @@
 <script>
 import axios from "axios";
+import { store } from "../store";
 export default {
   data() {
     return {
+      store,
       currentActors: [],
       currentGenres: [],
     };
@@ -21,29 +23,39 @@ export default {
     "searchResults",
     "actorKey",
   ],
-  computed() {
-    this.calculateStars();
-  },
-  created() {
-    this.searchInfo();
-  },
-  methods: {
+  computed: {
     calculateStars() {
       const stars = Math.round(this.vote / 2);
       return stars;
     },
+  },
+  created() {
+    this.searchInfo();
+  },
+
+  watch: {
+    "store.searchQuery"(newValue) {
+      if (newValue) {
+        this.searchInfo();
+      }
+    },
+  },
+  methods: {
     searchInfo() {
       axios
         .get(
-          "https://api.themoviedb.org/3/" +
-            this.actorKey +
-            this.id +
-            "?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits"
+          `https://api.themoviedb.org/3/${this.actorKey}/${this.id}?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits`
         )
         .then((response) => {
-          this.currentActors = response.data.credits.cast;
-          this.currentActors = this.currentActors.splice(0, 5);
-          this.currentGenres = response.data.genres;
+          if (response.data.credits && response.data.credits.cast) {
+            this.currentActors = response.data.credits.cast.slice(0, 5);
+          }
+          if (response.data.genres) {
+            this.currentGenres = response.data.genres;
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching movie details:", error);
         });
     },
   },
@@ -68,10 +80,10 @@ export default {
         />
       </div>
       <div>
-        <span v-for="x in calculateStars()">
+        <span v-for="x in calculateStars">
           <i class="fas fa-star"></i>
         </span>
-        <span v-for="x in 5 - calculateStars()">
+        <span v-for="x in 5 - calculateStars">
           <i class="fa-regular fa-star"></i>
         </span>
         <div class="actors" v-if="currentActors.length">
