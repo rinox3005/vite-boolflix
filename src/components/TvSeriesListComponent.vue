@@ -63,6 +63,7 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :plot="tvSerie.overview"
         :actors="tvSerieDetails[tvSerie.id]?.actors || []"
         :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />
@@ -76,6 +77,7 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :plot="tvSerie.overview"
         :actors="tvSerieDetails[tvSerie.id]?.actors || []"
         :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />

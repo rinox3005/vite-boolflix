@@ -64,6 +64,7 @@ export default {
         :posterPath="movie.poster_path"
         :imgUrl="store.imgBaseUrl"
         :imgSize="store.imgSize"
+        :plot="movie.overview"
         :actors="movieDetails[movie.id]?.actors || []"
         :genres="movieDetails[movie.id]?.genres || []"
       />
@@ -77,6 +78,7 @@ export default {
         :posterPath="movie.poster_path"
         :imgUrl="store.imgBaseUrl"
         :imgSize="store.imgSize"
+        :plot="movie.overview"
         :actors="movieDetails[movie.id]?.actors || []"
         :genres="movieDetails[movie.id]?.genres || []"
       />

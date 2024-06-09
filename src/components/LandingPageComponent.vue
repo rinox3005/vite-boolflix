@@ -176,6 +176,7 @@ export default {
           :posterPath="movie.poster_path"
           :imgUrl="store.imgBaseUrl"
           :imgSize="store.imgSize"
+          :plot="movie.overview"
           :actors="movieDetails[movie.id]?.actors || []"
           :genres="movieDetails[movie.id]?.genres || []"
         />
@@ -195,6 +196,7 @@ export default {
         :posterPath="movie.poster_path"
         :imgUrl="store.imgBaseUrl"
         :imgSize="store.imgSize"
+        :plot="movie.overview"
         :actors="movieDetails[movie.id]?.actors || []"
         :genres="movieDetails[movie.id]?.genres || []"
       />
@@ -212,6 +214,7 @@ export default {
         :posterPath="movie.poster_path"
         :imgUrl="store.imgBaseUrl"
         :imgSize="store.imgSize"
+        :plot="movie.overview"
         :actors="movieDetails[movie.id]?.actors || []"
         :genres="movieDetails[movie.id]?.genres || []"
       />
@@ -229,6 +232,7 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :plot="tvSerie.overview"
         :actors="tvSerieDetails[tvSerie.id]?.actors || []"
         :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />
@@ -246,6 +250,7 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
+        :plot="tvSerie.overview"
         :actors="tvSerieDetails[tvSerie.id]?.actors || []"
         :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />
