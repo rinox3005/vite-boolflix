@@ -245,6 +245,12 @@ ul {
   }
 }
 
+@media screen and (max-width: 890px) {
+  .movieGenres,
+  .tvGenres {
+    display: none;
+  }
+}
 @media screen and (max-width: 715px) {
   .mainlogo {
     display: none;
