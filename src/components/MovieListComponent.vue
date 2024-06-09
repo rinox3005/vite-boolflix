@@ -1,15 +1,49 @@
 <script>
 import CardComponent from "./CardComponent.vue";
 import { store } from "../store";
+import axios from "axios";
+
 export default {
   name: "MovieListComponent",
   data() {
     return {
       store,
+      movieDetails: {},
     };
   },
   components: {
     CardComponent,
+  },
+  created() {
+    this.$watch(
+      () => this.store.movieResults,
+      (newResults) => {
+        newResults.forEach((movie) => {
+          this.fetchMovieDetails(movie.id);
+        });
+      },
+      { immediate: true }
+    );
+  },
+  methods: {
+    async fetchMovieDetails(id) {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits`
+        );
+        const movie = response.data;
+        // Directly modifying the reactive object
+        this.movieDetails = {
+          ...this.movieDetails,
+          [id]: {
+            actors: movie.credits.cast.slice(0, 5),
+            genres: movie.genres,
+          },
+        };
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
+    },
   },
 };
 </script>
@@ -17,38 +51,34 @@ export default {
 <template>
   <div class="movies">
     <div class="results">
-      <h2 v-show="this.store.movieResults.length">Movies</h2>
+      <h2 v-show="store.movieResults.length">Movies</h2>
     </div>
     <div class="container">
       <CardComponent
         v-if="!this.store.filteredMovies.length"
-        v-for="movie in this.store.movieResults"
+        v-for="movie in store.movieResults"
         :title="movie.title"
         :originalTitle="movie.original_title"
         :originalLanguage="movie.original_language"
         :vote="movie.vote_average"
         :posterPath="movie.poster_path"
-        :imgUrl="this.store.imgBaseUrl"
-        :imgSize="this.store.imgSize"
-        :id="movie.id"
-        :cast="this.store.cast"
-        :searchResults="this.store.movieResults"
-        :actorKey="this.store.movieKey"
+        :imgUrl="store.imgBaseUrl"
+        :imgSize="store.imgSize"
+        :actors="movieDetails[movie.id]?.actors || []"
+        :genres="movieDetails[movie.id]?.genres || []"
       />
       <CardComponent
         v-else
-        v-for="movie in this.store.filteredMovies"
+        v-for="movie in store.filteredMovies"
         :title="movie.title"
         :originalTitle="movie.original_title"
         :originalLanguage="movie.original_language"
         :vote="movie.vote_average"
         :posterPath="movie.poster_path"
-        :imgUrl="this.store.imgBaseUrl"
-        :imgSize="this.store.imgSize"
-        :id="movie.id"
-        :cast="this.store.cast"
-        :searchResults="this.store.filteredMovies"
-        :actorKey="this.store.movieKey"
+        :imgUrl="store.imgBaseUrl"
+        :imgSize="store.imgSize"
+        :actors="movieDetails[movie.id]?.actors || []"
+        :genres="movieDetails[movie.id]?.genres || []"
       />
     </div>
   </div>

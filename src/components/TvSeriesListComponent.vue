@@ -1,15 +1,48 @@
 <script>
 import CardComponent from "./CardComponent.vue";
 import { store } from "../store";
+import axios from "axios";
 export default {
   name: "TvSeriesListComponent",
   data() {
     return {
       store,
+      tvSerieDetails: {},
     };
   },
   components: {
     CardComponent,
+  },
+  created() {
+    this.$watch(
+      () => this.store.tvResults,
+      (newResults) => {
+        newResults.forEach((tvSerie) => {
+          this.fetchTvDetails(tvSerie.id);
+        });
+      },
+      { immediate: true }
+    );
+  },
+  methods: {
+    async fetchTvDetails(id) {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/tv/${id}?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits`
+        );
+        const tvSerie = response.data;
+        // Directly modifying the reactive object
+        this.tvSerieDetails = {
+          ...this.tvSerieDetails,
+          [id]: {
+            actors: tvSerie.credits.cast.slice(0, 5),
+            genres: tvSerie.genres,
+          },
+        };
+      } catch (error) {
+        console.error("Error fetching tv series details:", error);
+      }
+    },
   },
 };
 </script>
@@ -22,7 +55,7 @@ export default {
     <div class="container">
       <CardComponent
         v-if="!this.store.filteredTvShows.length"
-        v-for="tvSerie in this.store.tvResults"
+        v-for="tvSerie in store.tvResults"
         :title="tvSerie.name"
         :originalTitle="tvSerie.original_name"
         :originalLanguage="tvSerie.original_language"
@@ -30,10 +63,8 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
-        :id="tvSerie.id"
-        :cast="this.store.cast"
-        :searchResults="this.store.tvResults"
-        :actorKey="this.store.tvKey"
+        :actors="tvSerieDetails[tvSerie.id]?.actors || []"
+        :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />
       <CardComponent
         v-else
@@ -45,10 +76,8 @@ export default {
         :posterPath="tvSerie.poster_path"
         :imgUrl="this.store.imgBaseUrl"
         :imgSize="this.store.imgSize"
-        :id="tvSerie.id"
-        :cast="this.store.cast"
-        :searchResults="this.store.filteredTvShows"
-        :actorKey="this.store.tvKey"
+        :actors="tvSerieDetails[tvSerie.id]?.actors || []"
+        :genres="tvSerieDetails[tvSerie.id]?.genres || []"
       />
     </div>
   </div>

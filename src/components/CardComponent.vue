@@ -1,12 +1,10 @@
 <script>
-import axios from "axios";
 import { store } from "../store";
+
 export default {
   data() {
     return {
       store,
-      currentActors: [],
-      currentGenres: [],
     };
   },
   name: "CardComponent",
@@ -18,10 +16,10 @@ export default {
     "posterPath",
     "imgUrl",
     "imgSize",
-    "id",
-    "cast",
     "searchResults",
-    "actorKey",
+    "info",
+    "genres",
+    "actors",
   ],
   computed: {
     calculateStars() {
@@ -29,37 +27,6 @@ export default {
       return stars;
     },
   },
-  created() {
-    this.searchInfo();
-  },
-
-  watch: {
-    "store.searchQuery"(newValue) {
-      if (newValue) {
-        this.searchInfo();
-      }
-    },
-  },
-  methods: {
-    searchInfo() {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/${this.actorKey}/${this.id}?api_key=2e9823c947e947ab6a35784821aa1f55&append_to_response=credits`
-        )
-        .then((response) => {
-          if (response.data.credits && response.data.credits.cast) {
-            this.currentActors = response.data.credits.cast.slice(0, 5);
-          }
-          if (response.data.genres) {
-            this.currentGenres = response.data.genres;
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching movie details:", error);
-        });
-    },
-  },
-  components: {},
 };
 </script>
 
@@ -80,24 +47,24 @@ export default {
         />
       </div>
       <div>
-        <span v-for="x in calculateStars">
+        <span v-for="x in calculateStars" :key="x">
           <i class="fas fa-star"></i>
         </span>
-        <span v-for="x in 5 - calculateStars">
+        <span v-for="x in 5 - calculateStars" :key="5 - x">
           <i class="fa-regular fa-star"></i>
         </span>
-        <div class="actors" v-if="currentActors.length">
-          <h3>Cast:</h3>
-          <ul>
-            <li v-for="actor in currentActors">{{ actor.name }}</li>
-          </ul>
-        </div>
-        <div class="genres" v-if="currentGenres.length">
-          <h3>Genres:</h3>
-          <ul>
-            <li v-for="genre in currentGenres">{{ genre.name }}</li>
-          </ul>
-        </div>
+      </div>
+      <div class="actors" v-if="actors && actors.length">
+        <h3>Cast:</h3>
+        <ul>
+          <li v-for="actor in actors" :key="actor.cast_id">{{ actor.name }}</li>
+        </ul>
+      </div>
+      <div class="genres" v-if="genres && genres.length">
+        <h3>Genres:</h3>
+        <ul>
+          <li v-for="genre in genres" :key="genre.id">{{ genre.name }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -122,15 +89,16 @@ export default {
       padding-bottom: 10px;
     }
   }
+
+  &:hover .info {
+    display: block;
+  }
+
+  &:hover .poster img {
+    display: none;
+  }
 }
 
-.card:hover .info {
-  display: inline-block;
-}
-
-.card:hover .poster img {
-  display: none;
-}
 .flag {
   img {
     width: 15px;
