@@ -109,7 +109,7 @@ export default {
   .info {
     width: 342px;
     height: 513px;
-    background-color: rgba(37, 37, 37, 0.8);
+    background-color: rgba(37, 37, 37, 0.79);
     padding: 40px 30px;
     color: #ffffff;
     position: absolute;
